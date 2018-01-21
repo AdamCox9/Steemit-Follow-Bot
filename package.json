@@ -1,0 +1,41 @@
+{
+  "name": "steemit-follow-bot",
+  "version": "0.0.1",
+  "main": "./lib/config.js",
+  "description": "Using the Follow functionality on the Steem blockchain.",
+  "author": "Adam Cox <adam.cox9@gmail.com>",
+  "homepage": "http://github.com/AdamCox9",
+  "keywords": [
+    "follow",
+    "unfollow",
+    "steem",
+    "bot",
+    "steemit",
+    "cryptocurrency",
+    "social network",
+    "blockchain"
+  ],
+  "directories": {
+    "lib": "./lib"
+  },
+  "license": "Unlicense",
+  "dependencies": {
+    "steem": "0.6.7"
+  },
+  "devDependencies": {
+    "underscore": "^1.8.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/AdamCox9/Steemit-Follow-Bot.git"
+  },
+  "engines": {
+    "node": ">= 4.0.0"
+  },
+  "scripts": {
+    "test": "./node_modules/vows/bin/vows test/*.js --spec"
+  },
+  "bugs": {
+    "url": "https://github.com/AdamCox9/Steemit-Follow-Bot/issues"
+  }
+}

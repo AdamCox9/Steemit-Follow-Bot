@@ -1,12 +1,8 @@
 var steem = require('steem');
 steem.api.setOptions({ url: 'wss://steemd-int.steemit.com' });
 
-var username = 'ENTER_USERNAME_HERE';
-var password = 'ENTER_PASSWORD_HERE'; 
-var wif = steem.auth.toWif(username, password, 'posting');
+var wif = steem.auth.toWif(config.steem.username, config.steem.password, 'posting');
 var followingArray = [];
-var start = '';
-var count = 100;
 
 function uniq(a) {
   return a.sort().filter(function(item, pos, ary) {
@@ -67,16 +63,13 @@ async function startFollowingAccounts() {
   console.log( 'startFollowingAccounts' );
 
   for (let i = 0; i < followingArray.length; i++) {
-  console.log( followingArray.length );
     getNewFollowing(followingArray[i]);
-    await sleep(1000);
+    await sleep(config.steem.delay);
   }
 }
 
-function getCurrentFollowing(account='money-dreamer',start='',count=100) {
+function getCurrentFollowing(account=config.steem.username,start=config.steem.start,count=100) {
   steem.api.getFollowing(account, start, 'blog', 100, function(err, result){
-
-    //console.log( err, result );
 
     start = '';
     count = result.length;
@@ -89,7 +82,7 @@ function getCurrentFollowing(account='money-dreamer',start='',count=100) {
     console.log( followingArray.length );
 
     if( count === 100 )
-      getCurrentFollowing( 'money-dreamer', start, count );
+      getCurrentFollowing( account, start, count );
     else {
       followingArray = uniq( followingArray );
       startFollowingAccounts();

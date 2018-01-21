@@ -1,12 +1,10 @@
 var steem = require('steem');
-steem.api.setOptions({ url: 'wss://steemd-int.steemit.com' });
-
-var username = 'ENTER_USERNAME_HERE';
-var password = 'ENTER_PASSWORD_HERE'; 
-var wif = steem.auth.toWif(username, password, 'posting');
+var wif = steem.auth.toWif(config.steem.username, config.steem.password, 'posting');
 var followingArray = [];
 var start = '';
 var count = 100;
+
+steem.api.setOptions({ url: 'wss://steemd-int.steemit.com' });
 
 function uniq(a) {
     return a.sort().filter(function(item, pos, ary) {
@@ -27,7 +25,7 @@ async function startFollowAccountsInTrending(result) {
 		    followAccountsInTrending(result);
 		});
 
-		await sleep(1000);
+		await sleep(config.steem.delay);
 
 	}
 }
@@ -60,7 +58,7 @@ async function followAccountsInTrending(result) {
 		  .then(console.log)
 		  .catch(console.log)
 
-		 await sleep(1000);
+		 await sleep(config.steem.delay);
 
 		 console.log( followingArray );
 
@@ -68,13 +66,10 @@ async function followAccountsInTrending(result) {
 
 }
 
-function getFollowing(start='',count=100) {
+//So we don't try to follow someone we are already following:
+function getFollowing(start=config.steem.user,count=100) {
     //console.log( 'test' );
-	steem.api.getFollowing('money-dreamer', start, 'blog', 100, function(err, result){
-
-	    //console.log( err, result );
-       	//console.log( 'count:' + count );
-       	//console.log( 'start:' + start );
+	steem.api.getFollowing(config.steem.username, start, 'blog', 100, function(err, result){
 
         start = '';
         count = result.length;
