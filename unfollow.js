@@ -1,11 +1,8 @@
 var steem = require('steem');
+steem.api.setOptions({ url: config.steem.url });
 var config = require('./config');
-steem.api.setOptions({ url: 'wss://steemd-int.steemit.com' });
-
 var wif = steem.auth.toWif(config.steem.username, config.steem.password, 'posting');
 var followingArray = [];
-var start = '';
-var count = 100;
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));

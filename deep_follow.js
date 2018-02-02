@@ -1,6 +1,6 @@
 var steem = require('steem');
-steem.api.setOptions({ url: 'wss://steemd-int.steemit.com' });
-
+steem.api.setOptions({ url: config.steem.url });
+var config = require('./config');
 var wif = steem.auth.toWif(config.steem.username, config.steem.password, 'posting');
 var followingArray = [];
 
