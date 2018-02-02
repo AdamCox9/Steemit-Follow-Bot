@@ -1,14 +1,18 @@
 var steem = require('steem');
 var config = require('./config');
+var library = require('./library');
+
 steem.api.setOptions({ url: config.steem.url });
+
 var wif = steem.auth.toWif(config.steem.username, config.steem.password, 'posting');
-var followingArray = [];
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function startUnfollowingAccounts() {
+async function startUnfollowingAccounts(followingArray=[]) {
+
+	console.log( followingArray.length );
 
 	for (var i = 0; i < followingArray.length; i++) {
 		let following = followingArray[i];
@@ -29,25 +33,5 @@ async function startUnfollowingAccounts() {
 	}
 }
 
-function getFollowing(start=config.steem.start,count=100) {
-	steem.api.getFollowing(config.steem.username, start, 'blog', 100, function(err, result){
 
-        start = '';
-        count = result.length;
-
-        console.log( 'queue total: '+followingArray.length );
-
-        for (let i = 1; i < count; i++) {
-        	followingArray.push(result[i].following);
-        	start = result[i].following;
-        }
-
-       	if( count === 100 )
-       		getFollowing( start, count );
-       	else
-			startUnfollowingAccounts();
-
-	});
-}
-
-getFollowing();
+library.getFollowing(config.steem.start,100,startUnfollowingAccounts);
