@@ -1,8 +1,10 @@
 var steem = require('steem');
 var config = require('./config');
 steem.api.setOptions({ url: config.steem.url });
+var wif = steem.auth.toWif(config.steem.username, config.steem.password, config.steem.auth_type);
 var followingArray = [];
 var followersArray = [];
+var mTimeout = 0;
 
 module.exports = {
 
@@ -44,5 +46,20 @@ module.exports = {
       else
         callback(followersArray);
     });
+  },
+  sendMemos: function(accounts=[]) {
+    console.log( 'number of accounts:'+accounts.length );
+    for (let i = 0; i < accounts.length; i++) {
+      mTimeout = mTimeout + config.steem.delay;
+      setTimeout( function(){
+        try {
+          steem.broadcast.transfer(wif, config.steem.username, accounts[i], config.steem.amount, config.steem.message, function(err, result) {
+            console.log(err, result);
+          });
+        } catch( err ) {
+          console.log( err );
+        }
+      }, mTimeout );
+    }
   }
 };

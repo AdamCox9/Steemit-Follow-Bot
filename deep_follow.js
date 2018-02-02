@@ -1,7 +1,7 @@
 var steem = require('steem');
 var config = require('./config');
 steem.api.setOptions({ url: config.steem.url });
-var wif = steem.auth.toWif(config.steem.username, config.steem.password, 'posting');
+var wif = steem.auth.toWif(config.steem.username, config.steem.password, config.steem.auth_perm);
 var followingArray = [];
 var library = require('./library');
 

@@ -1,10 +1,8 @@
 var steem = require('steem');
 var config = require('./config');
 var library = require('./library');
-
 steem.api.setOptions({ url: config.steem.url });
-
-var wif = steem.auth.toWif(config.steem.username, config.steem.password, 'posting');
+var wif = steem.auth.toWif(config.steem.username, config.steem.password, config.steem.auth_perm);
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
