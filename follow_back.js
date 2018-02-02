@@ -5,6 +5,7 @@ var wif = steem.auth.toWif(config.steem.username, config.steem.password, 'p
 var followingArray = [];
 var followersArray = [];
 var _ = require('underscore');
+var library = require('./library');
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -59,49 +60,15 @@ async function startFollowingAccounts() {
   }
 }
 
-function getFollowers(start='',count=1000) {
-	steem.api.getFollowers(config.steem.username, start, 'blog', 100, function(err, result){
-
-        start = '';
-        count = result.length;
-
-        //Skip first follower of ""
-        for (let i = 0; i < count-1; i) {
-        	followersArray.push(result[++i].follower);
-        	start = result[i].follower;
-        }
-
-        console.log( 'current followers total: '+followersArray.length );
-
-       	if( count === 100 )
-       		getFollowers( start, count );
-       	else {
-          startUnfollowingAccounts();
-          startFollowingAccounts();
-        }
-	});
+function finishGetFollowers(followers=[]) {
+  followersArray = followers;
+  startUnfollowingAccounts();
+  startFollowingAccounts();
+}
+function finishGetFollowing(following=[]) {
+  followingArray = following;
+  library.getFollowers(config.steem.start,1000,finishGetFollowers)
 }
 
-
-function getFollowing(start='',count=100) {
-	steem.api.getFollowing(config.steem.username, start, 'blog', 100, function(err, result){
-
-        start = '';
-        count = result.length;
-
-        console.log( 'queue total: '+followingArray.length );
-
-        for (let i = 1; i < count; i++) {
-        	followingArray.push(result[i].following);
-        	start = result[i].following;
-        }
-
-       	if( count === 100 )
-       		getFollowing( start, count );
-       	else
-			   getFollowers();
-
-	});
-}
-
-getFollowing();
+//Start the chain:
+library.getFollowing(config.steem.start,100,finishGetFollowing);
