@@ -25,7 +25,7 @@ And, past posts:
  - https://steemit.com/utopian-io/@money-dreamer/steem-follow-bot-updates
  - https://steemit.com/utopian-io/@money-dreamer/creating-follow-bot-w-nodejs
  - https://steemit.com/utopian-io/@money-dreamer/deep-follow-nodejs-steemjs
-
+ - https://steemit.com/utopian-io/@money-dreamer/steem-memo-bot
 
 ## send_memo
 NodeJS Steem/Steemit bot that sends messages as memos to followers or following.
@@ -42,15 +42,15 @@ This bot will send a message to all followers or following. Username and passwor
 `username – steem username`
 `password – steem password`
 
-## deep_follow
+## deep_follow - follow all accounts that following accounts follow
 
-## follow_back
+## follow_back - follow all accounts that follow current account
 
-## follow_trending_authors
+## follow_trending_authors - follow authors from trending tags
 
 ## library.js
 
-## unfollow.js
+## unfollow.js - unfollow all accounts
 
 ### Roadmap
  - Add criteria to filter accounts to follow:
@@ -63,4 +63,6 @@ This bot will send a message to all followers or following. Username and passwor
   - SP
  - Merge/copy/modify curation bot?
 
-https://steemit.com/utopian-io/@money-dreamer/steem-memo-bot
+  - Clean up the code so the scripts don't have any code duplication.
+   - Make a library with common functions
+  - Add functionality to filter following by parameters such as SP, VP, Balances, Follower/ing, etc...
