@@ -17,7 +17,7 @@ All of these files can be found on GitHub: https://github.com/AdamCox9/Steemit-F
 
 This code goes along with current post:
 
- - https://steemit.com/utopian-io/@money-dreamer/steem-follow-bot-updates-ii
+ - https://steemit.com/utopian-io/@money-dreamer/steemit-follow-bot-updates-ii
 
 And, past posts:
 
