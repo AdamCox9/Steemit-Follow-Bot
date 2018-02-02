@@ -1,6 +1,6 @@
 var steem = require('steem');
-steem.api.setOptions({ url: config.steem.url });
 var config = require('./config');
+steem.api.setOptions({ url: config.steem.url });
 var wif = steem.auth.toWif(config.steem.username, config.steem.password, 'posting');
 var followingArray = [];
 var followersArray = [];
@@ -10,32 +10,53 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+//Unfollow accounts that are no longer followers!
+async function startUnfollowingAccounts() {
+
+  var toUnfollow = _.difference( followingArray, followersArray );
+
+  for (var i = 0; i < toUnfollow.length; i++) {
+    let follower = toUnfollow[i];
+
+    let followReq = ["follow"]
+    followReq.push({follower: config.steem.username, following: follower, what: [""]})
+
+    const customJson = JSON.stringify(followReq)
+
+    console.log( followReq );
+
+    steem.broadcast.customJsonAsync(wif, [], [config.steem.username], "follow", customJson)
+      .then(console.log)
+      .catch(console.log)
+
+    await sleep( config.steem.delay );
+
+  }
+}
+
 async function startFollowingAccounts() {
 
-//TODO print a list of followers w/@ in front of them
+  var toFollow = _.difference( followersArray, followingArray );
 
-	followersArray = _.difference( followersArray, followingArray );
+  console.log( 'current followers not following total: '+toFollow.length );
 
-    console.log( 'current followers not following total: '+followersArray.length );
+  for (var i = 0; i < toFollow.length; i++) {
+    let follower = toFollow[i];
 
+    let followReq = ["follow"]
+    followReq.push({follower: config.steem.username, following: follower, what: ["blog"]})
 
-	for (var i = 0; i < followersArray.length; i++) {
-		let follower = followersArray[i];
+    const customJson = JSON.stringify(followReq)
 
-		let followReq = ["follow"]
-		followReq.push({follower: config.steem.username, following: follower, what: ["blog"]})
+    console.log( followReq );
 
-		const customJson = JSON.stringify(followReq)
+    steem.broadcast.customJsonAsync(wif, [], [config.steem.username], "follow", customJson)
+      .then(console.log)
+      .catch(console.log)
 
-		console.log( followReq );
+    await sleep( config.steem.delay );
 
-		steem.broadcast.customJsonAsync(wif, [], [config.steem.username], "follow", customJson)
-		  .then(console.log)
-		  .catch(console.log)
-
-		await sleep( config.steem.delay );
-
-	}
+  }
 }
 
 function getFollowers(start='',count=1000) {
@@ -54,9 +75,10 @@ function getFollowers(start='',count=1000) {
 
        	if( count === 100 )
        		getFollowers( start, count );
-       	else
-			startFollowingAccounts();
-
+       	else {
+          startUnfollowingAccounts();
+          startFollowingAccounts();
+        }
 	});
 }
 
@@ -77,7 +99,7 @@ function getFollowing(start='',count=100) {
        	if( count === 100 )
        		getFollowing( start, count );
        	else
-			getFollowers();
+			   getFollowers();
 
 	});
 }
