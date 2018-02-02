@@ -3,6 +3,7 @@ var config = require('./config');
 steem.api.setOptions({ url: config.steem.url });
 var wif = steem.auth.toWif(config.steem.username, config.steem.password, 'posting');
 var followingArray = [];
+var library = require('./library');
 
 function uniq(a) {
   return a.sort().filter(function(item, pos, ary) {
@@ -19,7 +20,7 @@ async function followAccount(following) {
   console.log(following);
 
   let followReq = ["follow"]
-  followReq.push({follower: username, following: following, what: ["blog"]})
+  followReq.push({follower: config.steem.username, following: following, what: ["blog"]})
 
   const customJson = JSON.stringify(followReq)
 
@@ -27,12 +28,13 @@ async function followAccount(following) {
 
   followingArray.push(following);
 
-  steem.broadcast.customJsonAsync(wif, [], [username], "follow", customJson)
+  steem.broadcast.customJsonAsync(wif, [], [config.steem.username], "follow", customJson)
     .then(console.log)
     .catch(console.log)
 
 }
 
+//These are the accounts of the users that you are following follow
 async function getNewFollowing(account='',start='',count=100) {
   steem.api.getFollowing(account, start, 'blog', 100, function(err, result){
 
@@ -58,8 +60,9 @@ async function getNewFollowing(account='',start='',count=100) {
   });
 }
 
-async function startFollowingAccounts() {
+async function startFollowingAccounts(following=[]) {
 
+  followingArray = following;
   console.log( 'startFollowingAccounts' );
 
   for (let i = 0; i < followingArray.length; i++) {
@@ -68,27 +71,5 @@ async function startFollowingAccounts() {
   }
 }
 
-function getCurrentFollowing(account=config.steem.username,start=config.steem.start,count=100) {
-  steem.api.getFollowing(account, start, 'blog', 100, function(err, result){
-
-    start = '';
-    count = result.length;
-
-    for (let i = 0; i < count; i++) {
-      followingArray.push(result[i].following);
-      start = result[i].following;
-    }
-
-    console.log( followingArray.length );
-
-    if( count === 100 )
-      getCurrentFollowing( account, start, count );
-    else {
-      followingArray = uniq( followingArray );
-      startFollowingAccounts();
-    }
-
-  });
-}
-
-getCurrentFollowing();
+//Start the chain:
+library.getFollowing(config.steem.start,100,startFollowingAccounts);
