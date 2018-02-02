@@ -2,11 +2,10 @@ var steem = require('steem');
 var config = require('./config');
 var mTimeout = 0;
 var upvoted = [];
-var regex1 = RegExp('^[\x20-\x7F]+$');
+var regex1 = RegExp('^[\x20-\x7F]+$');//only upvote posts with alphanumeric symbols for now...move to config.js?
 
-steem.api.setOptions({ url: 'wss://steemd-int.steemit.com' });
-
-var wif = steem.auth.toWif(config.steem.username, config.steem.password, 'owner');
+steem.api.setOptions({ url: config.steem.url });
+var wif = steem.auth.toWif(config.steem.username, config.steem.password, config.steem.auth_perm);
 
 function processTag(tag='') {
 	let attributename = tag;

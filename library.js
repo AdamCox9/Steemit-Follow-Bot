@@ -14,12 +14,12 @@ module.exports = {
       start = '';
       count = result.length;
 
-      console.log( 'queue total: '+followingArray.length );
-
       for (let i = 1; i < count; i++) {
         followingArray.push(result[i].following);
         start = result[i].following;
       }
+
+      console.log( 'following total: '+followingArray.length );
 
       if( count === 100 )
         module.exports.getFollowing( start, count, callback );
@@ -33,13 +33,12 @@ module.exports = {
       start = '';
       count = result.length;
 
-      //Skip first follower of ""
       for (let i = 0; i < count-1; i) {
         followersArray.push(result[++i].follower);
         start = result[i].follower;
       }
 
-      console.log( 'current followers total: '+followersArray.length );
+      console.log( 'followers total: '+followersArray.length );
 
       if( count === 100 )
         module.exports.getFollowers( start, count, callback );
@@ -67,22 +66,19 @@ module.exports = {
     for (let i = 0; i < accounts.length; i++) {
       mTimeout = mTimeout + config.steem.delay;
       setTimeout( function(){
-        try {
-          let following = accounts[i];
+        let following = accounts[i];
 
-          let followReq = ["follow"]
-          followReq.push({follower: config.steem.username, following: following, what: what})
+        let followReq = ["follow"]
+        followReq.push({follower: config.steem.username, following: following, what: what})
 
-          const customJson = JSON.stringify(followReq)
+        const customJson = JSON.stringify(followReq)
 
-          console.log( followReq );
+        console.log( followReq );
 
-          steem.broadcast.customJsonAsync(wif, [], [config.steem.username], "follow", customJson)
-            .then(console.log)
-            .catch(console.log)
-        } catch( err ) {
-          console.log( err );
-        }
+        steem.broadcast.customJsonAsync(wif, [], [config.steem.username], "follow", customJson)
+          .then(console.log)
+          .catch(console.log)
+
       }, mTimeout );
     }
   }
