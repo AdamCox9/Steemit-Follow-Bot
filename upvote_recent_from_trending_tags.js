@@ -5,7 +5,7 @@ var upvoted = [];
 var regex1 = RegExp('^[\x20-\x7F]+$');//only upvote posts with alphanumeric symbols for now...move to config.js?
 
 steem.api.setOptions({ url: config.steem.url });
-var wif = steem.auth.toWif(config.steem.username, config.steem.password, config.steem.auth_perm);
+var wif = steem.auth.toWif(config.steem.username, config.steem.password, config.steem.auth_type);
 
 function processTag(tag='') {
 	let attributename = tag;

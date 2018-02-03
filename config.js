@@ -6,14 +6,14 @@ config.steem = {};
 config.steem.username = process.env.STEEM_USER || 'ENTER_USERNAME_HERE';
 config.steem.password =  process.env.STEEM_PASSWORD || 'ENTER_PASSWORD_HERE';
 config.steem.url = 'wss://steemd-int.steemit.com';
-config.steem.auth_type = 'owner'; //owner, posting
+config.steem.auth_type = 'posting'; //owner, posting
 
 //delay in milliseconds between each write transaction
 config.steem.delay = 1000;
 
 //optional account to start at in alphanumerisymbolical order
 //this is not applicable in follow_trending_authors or follow_back bots
-config.steem.start = "";
+config.steem.start = "a00000000crypto";
 
 //memos only
 config.steem.type =  'followers'; //either following or followers

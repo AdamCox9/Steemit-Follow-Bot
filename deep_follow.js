@@ -1,7 +1,7 @@
 var steem = require('steem');
 var config = require('./config');
 steem.api.setOptions({ url: config.steem.url });
-var wif = steem.auth.toWif(config.steem.username, config.steem.password, config.steem.auth_perm);
+var wif = steem.auth.toWif(config.steem.username, config.steem.password, config.steem.auth_type);
 var followingArray = [];
 var library = require('./library');
 
@@ -48,8 +48,6 @@ async function getNewFollowing(account='',start='',count=100) {
       if( followingArray.indexOf(following) === -1 ) {
         followingArray.push(following);
         followAccount(following);
-      } else {
-        console.log( 'warn: already following this account')
       }
       start = following;
     }
