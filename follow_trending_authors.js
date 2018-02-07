@@ -44,7 +44,7 @@ async function followAccountsInTrending(result) {
 		}
 
 		let followReq = ["follow"]
-		followReq.push({follower: username, following: following, what: ["blog"]})
+		followReq.push({follower: config.steem.username, following: following, what: ["blog"]})
 
 		const customJson = JSON.stringify(followReq)
 
@@ -52,7 +52,7 @@ async function followAccountsInTrending(result) {
 
 		followingArray.push(following);
 
-		steem.broadcast.customJsonAsync(wif, [], [username], "follow", customJson)
+		steem.broadcast.customJsonAsync(wif, [], [config.steem.username], "follow", customJson)
 		  .then(console.log)
 		  .catch(console.log)
 

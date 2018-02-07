@@ -1,5 +1,6 @@
 var config = require('./config');
 var library = require('./library');
+var library_auth = require('./library_auth');
 var _ = require('underscore');
 
 var followingArray = [];
@@ -12,12 +13,12 @@ function finishGetFollowers(followers=[]) {
   //Unfollow accounts that are no longer followers but were before:
   var toUnfollow = _.difference( followingArray, followersArray );
   console.log( 'old followers not following anymore: '+toUnfollow.length );
-  library.followAccounts( toUnfollow, [""] );
+  library_auth.followAccounts( toUnfollow, [""] );
 
   //Follow accounts that are now followers but weren't before:
   var toFollow = _.difference( followersArray, followingArray );
   console.log( 'current followers not following before: '+toFollow.length );
-  library.followAccounts( toFollow, ["blog"] );
+  library_auth.followAccounts( toFollow, ["blog"] );
 
 }
 function finishGetFollowing(following=[]) {
