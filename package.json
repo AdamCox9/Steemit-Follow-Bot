@@ -20,6 +20,7 @@
   },
   "license": "Unlicense",
   "dependencies": {
+    "mssql": "^4.1.0",
     "steem": "0.6.7"
   },
   "devDependencies": {

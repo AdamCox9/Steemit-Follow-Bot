@@ -7,13 +7,6 @@ var followersArray = [];
 var entries = [];
 var contestPost = {};
 
-function startOrdering() {
-  //Order replies by upvotes
-  //Order replies by total number of replies/subreplies
-  //Order replies by account attributes such as reputation, followers/ing, activity, sp, balances, etc...
-  //Order replies by manual verification
-}
-
 function filterByFollowers() {
   var filtered_entries = [];
   for (var i = entries.length - 1; i >= 0; i--) {
@@ -67,31 +60,15 @@ function filterByResteem() {
   return filtered_entries;
 }
 
-function printWinners( ) {
-  for (var i = entries.length - 1; i >= 0; i--)
-  	console.log( '<a href="https://steemit.com'+entries[i].url+'">entry</a> by <a href="https://steemit.com/@'+entries[i].author+'">'+entries[i].author+'</a><br>' )
-}
-
-function startFilters() {
-  //Filter replies by followers:
+function applyFilters() {
   entries = filterByFollowers();
-
-  //Filter replies by having one image:
   entries = filterByGraphic();
-
-  //Filter replies by having link to overview page on google chrome experiments
   entries = filterByLink();
-
-  //Filter replies by accounts that have resteemed
   entries = filterByResteem();
-
-  printWinners();  
-
 }
 
-/*
 function getContestPost() {
-  var query = {
+  /*var query = {
     tag: 'money-dreamer',
     limit: 10
   };
@@ -102,19 +79,55 @@ function getContestPost() {
   	    break;
   	  }
   	}
-  });
-  steem.api.getContent('money-dreamer', '30-sbd-webgl-screen-capture-contest', function(err, result) {
+  });*/
+  /*steem.api.getContent('money-dreamer', '30-sbd-webgl-screen-capture-contest', function(err, result) {
     console.log( result.reblogged_by ); //always empty array
-  });
+  });*/
 }
-*/
+
+//Order entrants posts
+function applyOrdering() {
+  //Order replies by upvotes
+  //Order replies by total number of replies/subreplies
+  //Order replies by account attributes such as reputation, followers/ing, activity, sp, balances, etc...
+  //Order replies by manual verification
+}
+
+function extractUrl(body,link) {
+    var regex = /(https?:\/\/[^\s]+)/g;
+	while((r = regex.exec(body)) !== null) {
+  	  if( r[0].indexOf(link) !== -1 ) {
+  	  	if( r[0].indexOf("![") !== -1 ) {
+  	  	  let s = r[0].split("![");
+  	  	  return s[0];
+  	  	}
+  	  	if( r[0].indexOf(")") !== -1 ) {
+  	  	  let s = r[0].split(")");
+  	  	  return s[0];
+  	  	}
+  	    return r[0];
+  	  }
+  	}
+}
+
+function printWinners( ) {
+  for (var i = entries.length - 1; i >= 0; i--) {
+  	let link = extractUrl( entries[i].body, 'https://experiments.withgoogle.com/chrome/' );
+  	let image = extractUrl( entries[i].body, 'https://steemitimages.com/' );
+  	console.log( '<hr/><img style="max-width:100;max-height:100;" src="'+image+'">' );
+  	console.log( '<a href="'+link+'">overview</a> | <a href="https://steemit.com'+entries[i].url+'">entry</a> | <a href="https://steemit.com/@'+entries[i].author+'">'+entries[i].author+'</a><br><br><br>' )
+  	console.log("");
+  }
+}
 
 //Get all 1st level replies
 function getContestReplies() {
   steem.api.getContentReplies('money-dreamer', '30-sbd-webgl-screen-capture-contest', function(err, result) {
   	entries = result;
   	console.log( 'potential entrants: '+entries.length );
-  	startFilters();
+  	applyFilters();
+  	applyOrdering();
+  	printWinners();
   });
 }
 

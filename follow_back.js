@@ -13,7 +13,7 @@ function finishGetFollowers(followers=[]) {
   //Unfollow accounts that are no longer followers but were before:
   var toUnfollow = _.difference( followingArray, followersArray );
   console.log( 'old followers not following anymore: '+toUnfollow.length );
-  library_auth.followAccounts( toUnfollow, [""] );
+  //library_auth.followAccounts( toUnfollow, [""] );
 
   //Follow accounts that are now followers but weren't before:
   var toFollow = _.difference( followersArray, followingArray );

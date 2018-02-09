@@ -11,7 +11,9 @@ module.exports = {
       mTimeout = mTimeout + config.steem.delay;
       setTimeout( function(){
         try {
-          steem.broadcast.transfer(wif, config.steem.username, accounts[i], config.steem.amount, config.steem.message, function(err, result) {
+          let message = config.steem.message;
+          message = message.replace( '@username', '@'+accounts[i] );
+          steem.broadcast.transfer(wif, config.steem.username, accounts[i], config.steem.amount, message, function(err, result) {
             console.log(err, result);
           });
         } catch( err ) {
