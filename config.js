@@ -11,10 +11,11 @@ config.steem.auth_type = 'owner'; //owner, posting
 //delay in milliseconds between each write transaction
 config.steem.delay = 1000;
 
+//must be from username, goes with demo start.js
 config.steem.sample_post = 'creating-first-steemit-bot';
 
 //optional account to start at in alphanumerisymbolical order
-//this is not applicable in follow_trending_authors or follow_back bots
+//this is not applicable in follow_trending_authors, follow_back, generate_contest_winners bots
 config.steem.start = "";
 
 //memos only
@@ -23,9 +24,9 @@ config.steem.message = 'Hi @username!'; //message to be sent in each memo (@user
 config.steem.amount = '0.001 SBD'; //amount of SBD or STEEM to send to each follower/following
 
 //curation only
-//config.steem.type =  'created'; //created, hot or trending
-//config.steem.tags =  ['steem','steemit','utopian-io']; //tags. leave empty for all trending tags
-//config.steem.vote_percent = 1; //percentage of vote for each vote
+config.steem.type =  'created'; //created, hot or trending
+config.steem.tags =  ['steem','steemit','utopian-io']; //tags. leave empty for all trending tags
+config.steem.vote_percent = 1; //percentage of vote for each vote
 
 
 //generate_contest_winners only
