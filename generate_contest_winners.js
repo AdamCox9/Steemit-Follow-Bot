@@ -120,6 +120,13 @@ function printWinners( ) {
   }
 }
 
+function dumpWinnerArray( ) {
+  var winners = [];
+  for (var i = entries.length - 1; i >= 0; i--)
+  	winners.push( entries[i].author );
+  console.log( winners );
+}
+
 //Get all 1st level replies
 function getContestReplies() {
   steem.api.getContentReplies('money-dreamer', '30-sbd-webgl-screen-capture-contest', function(err, result) {
@@ -127,7 +134,8 @@ function getContestReplies() {
   	console.log( 'potential entrants: '+entries.length );
   	applyFilters();
   	applyOrdering();
-  	printWinners();
+  	//printWinners();
+  	dumpWinnerArray();
   });
 }
 
