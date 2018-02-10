@@ -19,7 +19,7 @@ config.steem.start = "";
 
 //memos only
 config.steem.type =  'followers'; //either following or followers
-config.steem.message = 'Hi @username Your Follower Rewards: https://steemit.com/payouts/@money-dreamer/follower-rewards (Un/follow to un/subscribe).'; //message to be sent in each memo
+config.steem.message = 'Hi @username!'; //message to be sent in each memo (@username will be replaced)
 config.steem.amount = '0.001 SBD'; //amount of SBD or STEEM to send to each follower/following
 
 //curation only
@@ -31,5 +31,11 @@ config.steem.amount = '0.001 SBD'; //amount of SBD or STEEM to send to each foll
 //generate_contest_winners only
 
 config.steem.contest_permlink = '30-sbd-webgl-screen-capture-contest';//link to post where contest is being held - must be by config.steem.username set above
+config.steem.contest_sublink = 'https://experiments.withgoogle.com/chrome/';//a comment entry must contain a URL with this sublink (only if require_link true)
+config.steem.require_graphic = true;//a comment entry must contain an image to qualify
+config.steem.require_link = true;//a comment entry must contain link with sublink to qualify
+config.steem.require_followers = true;//contestents must be following to qualify
+config.steem.require_resteem = true;//a comment entry must contain an image to qualify
+
 
 module.exports = config;

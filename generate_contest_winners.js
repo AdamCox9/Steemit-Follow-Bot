@@ -32,7 +32,7 @@ function filterByGraphic() {
 function filterByLink() {
   var filtered_entries = [];
   for (var i = entries.length - 1; i >= 0; i--) {
-  	if( entries[i].body.indexOf('https://experiments.withgoogle.com/chrome/') !== -1 ) {
+  	if( entries[i].body.indexOf(config.steem.contest_sublink) !== -1 ) {
   		filtered_entries.push( entries[i] );
   	}
   }
@@ -61,10 +61,14 @@ function filterByResteem() {
 }
 
 function applyFilters() {
-  entries = filterByFollowers();
-  entries = filterByGraphic();
-  entries = filterByLink();
-  entries = filterByResteem();
+  if( config.steem.require_follow )
+    entries = filterByFollowers();
+  if( config.steem.require_graphic )
+    entries = filterByGraphic();
+  if( config.steem.require_link )
+    entries = filterByLink();
+  if( config.steem.require_resteem )
+    entries = filterByResteem();
 }
 
 function getContestPost() {
@@ -112,7 +116,7 @@ function extractUrl(body,link) {
 
 function printWinners( ) {
   for (var i = entries.length - 1; i >= 0; i--) {
-  	let link = extractUrl( entries[i].body, 'https://experiments.withgoogle.com/chrome/' );
+  	let link = extractUrl( entries[i].body, config.steem.contest_sublink );
   	let image = extractUrl( entries[i].body, 'https://steemitimages.com/' );
   	console.log( '<hr/><img style="max-width:100;max-height:100;" src="'+image+'">' );
   	console.log( '<a href="'+link+'">overview</a> | <a href="https://steemit.com'+entries[i].url+'">entry</a> | <a href="https://steemit.com/@'+entries[i].author+'">'+entries[i].author+'</a><br><br><br>' )
@@ -129,13 +133,13 @@ function dumpWinnerArray( ) {
 
 //Get all 1st level replies
 function getContestReplies() {
-  steem.api.getContentReplies('money-dreamer', '30-sbd-webgl-screen-capture-contest', function(err, result) {
+  steem.api.getContentReplies(config.steem.username, config.steem.contest_permlink, function(err, result) {
   	entries = result;
   	console.log( 'potential entrants: '+entries.length );
   	applyFilters();
   	applyOrdering();
-  	//printWinners();
-  	dumpWinnerArray();
+  	printWinners();
+  	//dumpWinnerArray();
   });
 }
 
