@@ -8,8 +8,8 @@ if( config.steem.send_memos_to !== null ) {
 }
 
 if( config.steem.type === 'followers')
-	library.getFollowers(config.steem.start,1000,library_auth.sendMemos);
+	library.getFollowers(config.steem.username,config.steem.start,1000,library_auth.sendMemos);
 else if( config.steem.type === 'following')
-	library.getFollowing(config.steem.start,100,library_auth.sendMemos);
+	library.getFollowing(config.steem.username,config.steem.start,100,library_auth.sendMemos);
 else
 	console.log( 'config.steem.type needs to be followers or following')

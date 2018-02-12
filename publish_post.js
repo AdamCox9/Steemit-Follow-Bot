@@ -1,5 +1,5 @@
 /* @params username, password, parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata */
-steem.broadcast.comment('fabien', 'sgs56sd84hbr51qpodg1', 
+/*steem.broadcast.comment('fabien', 'sgs56sd84hbr51qpodg1', 
  '', 
  'steemjs',
  'fabien', 
@@ -9,4 +9,4 @@ steem.broadcast.comment('fabien', 'sgs56sd84hbr51qpodg1',
  {tags: ['steemjs', 'steem']}, 
  function(err, result) {
     console.log(err, result);
-});
+});*/

@@ -151,4 +151,4 @@ function finishGetFollowers(followers=[]) {
 }
 
 //Get followers
-library.getFollowers('',1000, finishGetFollowers);
+library.getFollowers(config.steem.username,'',1000, finishGetFollowers);

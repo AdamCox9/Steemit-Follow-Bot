@@ -6,4 +6,4 @@ function startUnfollowingAccounts(accounts=[]) {
 	library_auth.followAccounts(accounts,[""]);//empty to unfollow
 }
 
-library.getFollowing(config.steem.start,100,startUnfollowingAccounts);
+library.getFollowing(config.steem.username,config.steem.start,100,startUnfollowingAccounts);

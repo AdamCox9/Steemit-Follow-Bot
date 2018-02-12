@@ -1,12 +1,11 @@
 const sql = require('mssql');
 const util = require('util')
 
-
 const config = {
-    user: 'Steemit-money-dreamer',
-    password: 'Gmt3tkmY5FBw64Htw9GH',
-    server: 'vip.steemsql.com',
-    database: 'DBSteem',
+    user: config.steem.steemsql_username,
+    password: config.steem.steemsql_password,
+    server: config.steem.steemsql_server,
+    database: config.steem.steemsql_database,
 }
 
 sql.connect(config).then(pool => {

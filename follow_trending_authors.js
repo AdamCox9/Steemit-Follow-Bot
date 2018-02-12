@@ -64,7 +64,7 @@ async function followAccountsInTrending(result) {
 
 }
 
-//So we don't try to follow someone we are already following:
+//TODO move this to library.js
 function getFollowing(start=config.steem.user,count=100) {
     //console.log( 'test' );
 	steem.api.getFollowing(config.steem.username, start, 'blog', 100, function(err, result){

@@ -11,9 +11,11 @@ function finishGetFollowers(followers=[]) {
   followersArray = followers;
 
   //Unfollow accounts that are no longer followers but were before:
-  var toUnfollow = _.difference( followingArray, followersArray );
-  console.log( 'old followers not following anymore: '+toUnfollow.length );
-  //library_auth.followAccounts( toUnfollow, [""] );
+  if( config.steem.unfollow_nonfollowers ) {
+    var toUnfollow = _.difference( followingArray, followersArray );
+    console.log( 'old followers not following anymore: '+toUnfollow.length );
+    //library_auth.followAccounts( toUnfollow, [""] );
+  }
 
   //Follow accounts that are now followers but weren't before:
   var toFollow = _.difference( followersArray, followingArray );
@@ -23,8 +25,8 @@ function finishGetFollowers(followers=[]) {
 }
 function finishGetFollowing(following=[]) {
   followingArray = following;
-  library.getFollowers(config.steem.start,1000,finishGetFollowers)
+  library.getFollowers(config.steem.username,config.steem.start,1000,finishGetFollowers)
 }
 
 //Start the chain:
-library.getFollowing(config.steem.start,100,finishGetFollowing);
+library.getFollowing(config.steem.username,config.steem.start,100,finishGetFollowing);

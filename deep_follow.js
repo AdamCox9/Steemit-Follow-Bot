@@ -35,7 +35,7 @@ async function followAccount(following) {
 }
 
 //These are the accounts of the users that you are following follow
-async function getNewFollowing(account='',start='',count=100) {
+async function getNewFollowing(account=config.steem.username,start=config.steem.start,count=100) {
   steem.api.getFollowing(account, start, 'blog', 100, function(err, result){
 
     start = '';
@@ -70,4 +70,4 @@ async function startFollowingAccounts(following=[]) {
 }
 
 //Start the chain:
-library.getFollowing(config.steem.start,100,startFollowingAccounts);
+library.getFollowing(config.steem.username,config.steem.start,100,startFollowingAccounts);
