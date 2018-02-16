@@ -9,7 +9,7 @@ config.steem.url = 'wss://steemd-int.steemit.com';
 config.steem.auth_type = 'owner'; //owner, posting
 
 //delay in milliseconds between each write transaction
-config.steem.delay = 100;
+config.steem.delay = 200;
 
 //must be from username, goes with demo start.js
 config.steem.sample_post = 'creating-first-steemit-bot';
@@ -21,11 +21,12 @@ config.steem.start = "";
 
 //memos only
 config.steem.type =  'followers'; //either following or followers
-config.steem.message = 'Hi @username!'; //message to be sent in each memo (@username will be replaced)
+config.steem.message = 'Hi @username Your earnings: 0.001 SBD https://steemit.com/follow/@money-dreamer/follower-earnings Un/follow to un/subscribe.'; //message to be sent in each memo (@username will be replaced)
 config.steem.amount = '0.001 SBD'; //amount of SBD or STEEM to send to each follower/following
+config.steem.send_memos_to = null;
 
 //curation only
-config.steem.type =  'created'; //created, hot or trending
+config.steem.curation_type =  'created'; //created, hot or trending
 config.steem.tags =  ['steem','steemit','utopian-io']; //tags. leave empty for all trending tags
 config.steem.vote_percent = 1; //percentage of vote for each vote
 
@@ -41,7 +42,7 @@ config.steem.require_resteem = true;//a comment entry must contain an image to q
 config.steem.unfollow_nonfollowers = false; //if a user unfollows this account, then unfollow them
 
 //follow_accounts only
-config.steem.follow_accounts_from = 'jerrybanfield';
+config.steem.follow_accounts_from = 'jerrybanfield';//ned, dan
 config.steem.accounts_to_follow = []; //this will be ignored if config.steem.follow_accounts_from is not null
 config.steem.follow_accounts_type =  'following'; //either following or followers
 

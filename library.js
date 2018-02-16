@@ -8,6 +8,7 @@ var mTimeout = 0;
 module.exports = {
   getFollowing: function(username=config.steem.username,start=config.steem.start,count=100,callback) {
     steem.api.getFollowing(username, start, 'blog', 100, function(err, result){
+      console.log( err, result );
       start = '';
       count = result.length;
       for (let i = 1; i < count; i++) {
@@ -22,6 +23,7 @@ module.exports = {
   },
   getFollowers: function(username=config.steem.username,start=config.steem.start,count=1000,callback) {
     steem.api.getFollowers(username, start, 'blog', 100, function(err, result){
+      console.log( err, result );
       start = '';
       count = result.length;
       for (let i = 0; i < count-1; i) {
