@@ -8,7 +8,7 @@ var mTimeout = 0;
 module.exports = {
   getFollowing: function(username=config.steem.username,start=config.steem.start,count=100,callback) {
     steem.api.getFollowing(username, start, 'blog', 100, function(err, result){
-      console.log( err, result );
+      //console.log( err, result );
       start = '';
       count = result.length;
       for (let i = 1; i < count; i++) {
@@ -23,7 +23,7 @@ module.exports = {
   },
   getFollowers: function(username=config.steem.username,start=config.steem.start,count=1000,callback) {
     steem.api.getFollowers(username, start, 'blog', 100, function(err, result){
-      console.log( err, result );
+      //console.log( err, result );
       start = '';
       count = result.length;
       for (let i = 0; i < count-1; i) {
@@ -34,6 +34,18 @@ module.exports = {
         module.exports.getFollowers( username, start, count, callback );
       else
         callback(followersArray);
+    });
+  },
+  getRebloggedBy: function(username=config.steem.username,contest_permlink=config.steem.contest_permlink,callback) {
+    steem.api.getRebloggedBy(username,contest_permlink, function(err, result) {
+      //console.log( err, result );
+      callback( result );
+    });
+  },
+  getAccounts: function(accounts=null,callback) {
+    steem.api.getAccounts(accounts, function(err, result){
+      //console.log( err, result );
+      callback( result );
     });
   }
 };
