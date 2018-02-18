@@ -13,6 +13,7 @@ module.exports = {
         try {
           let message = config.steem.message;
           message = message.replace( '@username', '@'+accounts[i] );
+          console.log( message );
           steem.broadcast.transfer(wif, config.steem.username, accounts[i], config.steem.amount, message, function(err, result) {
             console.log(err, result);
           });

@@ -11,8 +11,7 @@ function filterAccounts( accounts = [] ) {
   	let filtered_accounts = [];
     for (var i = response.length - 1; i >= 0; i--) {
       if( parseInt(response[i].reputation) > parseInt(1000000) ) {
-          filtered_accounts.push( response[i].name );
-        }
+        filtered_accounts.push( response[i].name );
       }
     }
 
