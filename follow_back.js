@@ -14,7 +14,7 @@ function finishGetFollowers(followers=[]) {
   if( config.steem.unfollow_nonfollowers ) {
     var toUnfollow = _.difference( followingArray, followersArray );
     console.log( 'old followers not following anymore: '+toUnfollow.length );
-    //library_auth.followAccounts( toUnfollow, [""] );
+    library_auth.followAccounts( toUnfollow, [""] );
   }
 
   //Follow accounts that are now followers but weren't before:
