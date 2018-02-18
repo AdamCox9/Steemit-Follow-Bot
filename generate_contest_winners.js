@@ -15,7 +15,7 @@ function filterByAuthor() {
       filtered_accounts.push( authorArray[i].name );
     }
   }
-  console.log( 'filtered by authors: '+filtered_entries.length );
+  console.log( 'filtered by authors: '+filtered_entries.length+'<br>' );
   return filtered_entries;
 }
 
@@ -26,7 +26,7 @@ function filterByFollowers() {
   		filtered_entries.push( entryArray[i] );
   	}
   }
-  console.log( 'filtered by followers: '+filtered_entries.length );
+  console.log( 'filtered by followers: '+filtered_entries.length+'<br>' );
   return filtered_entries;
 }
 
@@ -37,7 +37,7 @@ function filterByGraphic() {
   		filtered_entries.push( entryArray[i] );
   	}
   }
-  console.log( 'filtered by graphic: '+filtered_entries.length );
+  console.log( 'filtered by graphic: '+filtered_entries.length+'<br>' );
   return filtered_entries;
 }
 
@@ -48,7 +48,7 @@ function filterByLink() {
   		filtered_entries.push( entryArray[i] );
   	}
   }
-  console.log( 'filtered by link: '+filtered_entries.length );
+  console.log( 'filtered by link: '+filtered_entries.length+'<br>' );
   return filtered_entries;
 }
 
@@ -63,7 +63,43 @@ function filterByResteem() {
       }
     }
   }
-  console.log( 'filtered by resteem: '+filtered_entries.length );
+  console.log( 'filtered by resteem: '+filtered_entries.length+'<br>' );
+  return filtered_entries;
+}
+
+function filterByDisqualified() {
+  var filtered_entries = [];
+  for (var j = entryArray.length - 1; j >= 0; j--) {
+    let disqualified = false;
+    for (var i = config.steem.filter_by_disqualified.length - 1; i >= 0; i--) {
+      //console.log( 'result #'+i+': '+reblogged_by[i] );
+      //console.log( 'entry  #'+j+': '+entryArray[j].author );
+      if( config.steem.filter_by_disqualified[i] == entryArray[j].permlink ) {
+        disqualified = true;
+      }
+    }
+    if( ! disqualified )
+      filtered_entries.push( entryArray[j] )
+  }
+  console.log( 'filtered by disqualified: '+filtered_entries.length+'<br>' );
+  return filtered_entries;
+}
+
+function filterByDate() {
+  var filtered_entries = [];
+
+  var deadline = new Date( config.steem.filter_by_date ); 
+ 
+  for (var j = entryArray.length - 1; j >= 0; j--) {
+    //console.log( 'entry  #'+j+': '+entryArray[j].author );
+
+    let lastUpdate = new Date( entryArray[j].last_update );
+
+    if( lastUpdate < deadline  ) {
+      filtered_entries.push( entryArray[j] );
+    }
+  }
+  console.log( 'filtered by date: '+filtered_entries.length+'<br>' );
   return filtered_entries;
 }
 
@@ -76,8 +112,12 @@ function applyFilters() {
     entryArray = filterByLink();
   if( config.steem.filter_by_author )
     entryArray = filterByAuthor();
-  if( config.steem.filter_by_resteem )
+  if( config.steem.require_resteem )
     entryArray = filterByResteem();
+  if( config.steem.filter_by_disqualified )
+    entryArray = filterByDisqualified();
+  if( config.steem.filter_by_date )
+    entryArray = filterByDate();
   applyOrdering();
 }
 
@@ -101,6 +141,7 @@ function getContestPost() {
 
 //Order entrants posts
 function applyOrdering() {
+  //Order replies by date
   //Order replies by upvotes
   //Order replies by total number of replies/subreplies
   //Order replies by account attributes such as reputation, followers/ing, activity, sp, balances, etc...
@@ -131,7 +172,7 @@ function printWinners( ) {
   	let image = extractUrl( entryArray[i].body, 'https://steemitimages.com/' );
   	console.log( '<hr/><img style="max-width:100;max-height:100;" src="'+image+'">' );
   	console.log( '<a href="'+link+'">overview</a> | <a href="https://steemit.com'+entryArray[i].url+'">entry</a> | <a href="https://steemit.com/@'+entryArray[i].author+'">'+entryArray[i].author+'</a><br><br><br>' )
-  	console.log("");
+  	console.log("<br>");
   }
 }
 
@@ -156,6 +197,8 @@ function getAuthors(reblogged_by=[]) {
 function getRebloggedBy(error, entries=[]) {
   console.log( 'Total Entries: '+entries.length );
   entryArray = entries;
+  //console.log( JSON.stringify(entries) );
+  //console.log( entries );
   library.getRebloggedBy(config.steem.username,config.steem.contest_permlink,getAuthors);
 }
 
@@ -167,4 +210,6 @@ function getContestReplies(followers=[]) {
 }
 
 //Get followers
-library.getFollowers(config.steem.username,'',1000, getContestReplies);
+//library.getFollowers(config.steem.username,'',1000, getContestReplies);
+
+getContestReplies([]);
