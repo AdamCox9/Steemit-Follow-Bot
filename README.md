@@ -9,7 +9,7 @@ All of these files can be found on GitHub: https://github.com/AdamCox9/Steemit-F
 
 This code goes along with Steem post:
 
- - https://steemit.com/utopian-io/@money-dreamer/development-steem-follow-bot-updates-iv
+ - https://steemit.com/utopian-io/@money-dreamer/development-follow-bot-updates-iv
 
 ## config.js - global configuration and configuration for each script
 
