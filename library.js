@@ -17,8 +17,11 @@ module.exports = {
       }
       if( count === 100 )
         module.exports.getFollowing( username, start, count, callback );
-      else
-        callback(followingArray);
+      else {
+        let nFollowingArray = followingArray.slice();
+        followingArray = [];
+        callback(nFollowingArray);
+      }
     });
   },
   getFollowers: function(username=config.steem.username,start=config.steem.start,count=1000,callback) {
@@ -32,8 +35,11 @@ module.exports = {
       }
       if( count === 100 )
         module.exports.getFollowers( username, start, count, callback );
-      else
-        callback(followersArray);
+      else {
+        let nFollowersArray = followersArray.slice();
+        followersArray = [];
+        callback(nFollowersArray);
+      }
     });
   },
   getRebloggedBy: function(username=config.steem.username,contest_permlink=config.steem.contest_permlink,callback) {

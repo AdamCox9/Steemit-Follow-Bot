@@ -46,7 +46,7 @@ config.steem.filter_by_disqualified = false;//an array of entry permlinks that a
 config.steem.unfollow_nonfollowers = false; //if a user unfollows this account, then unfollow them
 
 //follow_accounts only
-config.steem.follow_accounts_from = 'jerrybanfield';
+config.steem.follow_accounts_from = 'money-dreamer';
 config.steem.accounts_to_follow = []; //this will be ignored if config.steem.follow_accounts_from is not false
 config.steem.follow_accounts_from_type =  'followers'; //either following or followers
 
