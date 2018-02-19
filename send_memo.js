@@ -21,12 +21,9 @@ function filterAccounts( accounts = [] ) {
   });
 }
 
-if( config.steem.send_memos_to !== null ) {
+if( config.steem.send_memos_to ) {
 	library_auth.sendMemos( config.steem.send_memos_to )
-	return;
-}
-
-if( config.steem.type === 'followers')
+else if( config.steem.type === 'followers')
 	library.getFollowers(config.steem.username,config.steem.start,1000,filterAccounts);
 else if( config.steem.type === 'following')
 	library.getFollowing(config.steem.username,config.steem.start,100,filterAccounts);

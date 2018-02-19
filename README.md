@@ -1,6 +1,6 @@
 # Steemit Follow Bot
 
-## Last Updated: 02/02/2018
+## Last Updated: 02/18/2018
 
 This is a collection of scripts that interact with the follow functionality offered by the Steem blockchain.
 This project repository will include all sub-projects that are primarily aimed at utilizing the Follow functionality that Steem offers.
@@ -25,6 +25,8 @@ Username and password must be set in the config.js.
 
 Run bot from command line with `node start.js`
 
+`sample_post - permlink of post to upvote`
+
 ## send_memo.js
 
 NodeJS Steem/Steemit bot that sends messages as memos to followers or following.
@@ -41,6 +43,8 @@ The following parameters must also be set in the config.js file for send_memo:
 `amount – amount of SBD|STEEM to be sent in each transaction`
 
 `start – (optional) user to start at (processes in alphanumerical order)`
+
+`send_memos_to - an array of accounts to send memos to, else false and will default to following/ers specified above`
 
 ## deep_follow.js - follow all accounts that following accounts follow
 
