@@ -15,11 +15,18 @@ This code goes along with Steem post:
 
 Username and password must be set in the config.js.
 
-`delay - time between broadcast transactions`
-
 `username – steem username`
 
 `password – steem password`
+
+`url - connect to this API sample (wss://steemd-int.steemit.com)`
+
+`auth_type - one of the several types such as owner or posting`
+
+`delay - time between broadcast transactions`
+
+`start – (optional) user to start at (processes in alphanumerical order) this is currently being used across many bots but probably should be set on a per bot basis`
+
 
 ## start.js - Sample bot to make 1% upvote to config.steem.sample_post
 
@@ -42,21 +49,43 @@ The following parameters must also be set in the config.js file for send_memo:
 
 `amount – amount of SBD|STEEM to be sent in each transaction`
 
-`start – (optional) user to start at (processes in alphanumerical order)`
-
 `send_memos_to - an array of accounts to send memos to, else false and will default to following/ers specified above`
+
+## curation.js - sample bot that upvotes posts from trending categories
+
+Run bot from command line with `node curation.js`
+
+`curation_type - one string of an order from created, hot or trending`
+
+`tags - an array of trending tags`
+
+`vote_percent - (1-100)% of whole vote per upvote`
 
 ## deep_follow.js - follow all accounts that following accounts follow
 
 Run bot from command line with `node deep_follow.js`
 
+`todo - make it configurable`
+
 ## follow_back.js - follow all accounts that follow current account
 
 Run bot from command line with `node follow_back.js`
 
+`unfollow_nonfollowers - if a user unfollows this account, then unfollow them`
+
 ## follow_trending_authors.js - follow authors from trending tags
 
 Run bot from command line with `node follow_trending_authors.js`
+
+## follow_accounts.js - follow accounts from a user or array
+
+Run bot from command line with `node follow_trending_authors.js`
+
+`follow_accounts_from - account name to get followers/ing from`
+
+`accounts_to_follow - this will be ignored if config.steem.follow_accounts_from is not false`
+
+`follow_accounts_from_type - either following or followers`
 
 ## unfollow.js - unfollow all accounts
 
@@ -66,6 +95,31 @@ Run bot from command line with `node unfollow.js`
 
 Run bot from command line with `node generate_contest_winners.js`
 
+`config.steem.contest_permlink - permlink to post where contest is being held - must be authored by config.steem.username set above`
+
+`config.steem.contest_sublink - a comment entry must contain a URL with this sublink (only if require_link true)`
+
+`config.steem.require_graphic - a comment entry must contain an image to qualify`
+
+`config.steem.require_link - a comment entry must contain link with sublink to qualify`
+
+`config.steem.require_followers - contestents must be following to qualify`
+
+`config.steem.require_resteem - a comment entry must contain an image to qualify`
+
+`config.steem.filter_by_date - set deadline (date format) for latest update to entries, else false`
+
+`config.steem.filter_by_accounts - array of disqualified accounts, else false`
+
+`config.steem.filter_by_disqualified - an array of entry permlinks that are manually disqualified, else false`
+
 ## get_reblogs_steemsql.js - (temporary solution) print all accounts that resteemed the post
+
+Run bot from command line with `node get_reblogs_steemsql.js`
+
+config.steem.steemsql_username = '';
+config.steem.steemsql_password = '';
+config.steem.steemsql_server = '';
+config.steem.steemsql_database = '';
 
 ## library.js - common reusable functions
