@@ -117,9 +117,9 @@ Run bot from command line with `node generate_contest_winners.js`
 
 Run bot from command line with `node get_reblogs_steemsql.js`
 
-config.steem.steemsql_username = '';
-config.steem.steemsql_password = '';
-config.steem.steemsql_server = '';
-config.steem.steemsql_database = '';
+`config.steem.steemsql_username = '';`
+`config.steem.steemsql_password = '';`
+`config.steem.steemsql_server = '';`
+`config.steem.steemsql_database = '';`
 
 ## library.js - common reusable functions
