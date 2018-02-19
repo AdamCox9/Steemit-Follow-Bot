@@ -31,15 +31,15 @@ config.steem.tags =  ['steem','steemit','utopian-io']; //tags. leave empty for a
 config.steem.vote_percent = 1; //percentage of vote for each vote
 
 //generate_contest_winners only
-config.steem.contest_permlink = '40-sbd-webgl-screen-capture-contest';//permlink to post where contest is being held - must be authored by config.steem.username set above
-config.steem.contest_sublink = 'https://experiments.withgoogle.com/chrome/';//a comment entry must contain a URL with this sublink (only if require_link true)
-config.steem.require_graphic = true;//a comment entry must contain an image to qualify
-config.steem.require_link = true;//a comment entry must contain link with sublink to qualify
-config.steem.require_followers = true;//contestents must be following to qualify
-config.steem.require_resteem = true;//a comment entry must contain an image to qualify
-config.steem.filter_by_date = '2018-02-15 20:27:27';//set deadline (date format) for latest update to entries, else false
-config.steem.filter_by_accounts = false;//array of disqualified accounts, else false
-config.steem.filter_by_disqualified = false;//an array of entry permlinks that are manually disqualified, else false
+config.steem.contest_permlink = '40-sbd-webgl-screen-capture-contest';
+config.steem.contest_sublink = 'https://experiments.withgoogle.com/chrome/';
+config.steem.require_graphic = true;
+config.steem.require_link = true;
+config.steem.require_followers = true;
+config.steem.require_resteem = true;
+config.steem.filter_by_date = '2018-02-15 20:27:27';
+config.steem.filter_by_accounts = false;
+config.steem.filter_by_disqualified = false;
 
 
 //follow_back only
